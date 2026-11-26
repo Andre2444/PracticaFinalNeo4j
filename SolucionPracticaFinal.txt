@@ -1,6 +1,6 @@
 Integrantes:
-- Nombre Integrante 1
-- Nombre Integrante 2
+- Cristian David Camacho Grueso - 2248977
+- Andres Felipe Acosta Montoya - 2245844
 
 Repositorio GitHub:
 https://github.com/Andre2444/PracticaFinalNeo4j
