@@ -1,0 +1,21 @@
+usuarioId,nombre,edad,sexo,email,fechaNacimiento
+1,Juan Perez,22,M,juan.perez@correo.com,2004-03-15
+2,Maria Gomez,25,F,maria.gomez@correo.com,2001-07-20
+3,Carlos Rodriguez,28,M,carlos.rodriguez@correo.com,1998-11-05
+4,Ana Martinez,21,F,ana.martinez@correo.com,2005-01-30
+5,Luis Hernandez,30,M,luis.hernandez@correo.com,1996-06-12
+6,Laura Diaz,24,F,laura.diaz@correo.com,2002-09-18
+7,Pedro Sanchez,27,M,pedro.sanchez@correo.com,1999-04-25
+8,Sofia Ramirez,23,F,sofia.ramirez@correo.com,2003-12-10
+9,Diego Torres,26,M,diego.torres@correo.com,2000-08-03
+10,Valentina Flores,22,F,valentina.flores@correo.com,2004-05-14
+11,Andres Morales,29,M,andres.morales@correo.com,1997-02-28
+12,Camila Ortiz,20,F,camila.ortiz@correo.com,2006-10-09
+13,Alex Rivera,25,Otro,alex.rivera@correo.com,2001-03-22
+14,Daniela Castro,24,F,daniela.castro@correo.com,2002-07-07
+15,Jorge Vargas,31,M,jorge.vargas@correo.com,1995-01-19
+16,Natalia Mendoza,23,F,natalia.mendoza@correo.com,2003-04-11
+17,Sebastian Rojas,26,M,sebastian.rojas@correo.com,2000-11-23
+18,Paula Guerrero,22,F,paula.guerrero@correo.com,2004-08-16
+19,Mateo Medina,27,M,mateo.medina@correo.com,1999-09-01
+20,Isabella Silva,21,F,isabella.silva@correo.com,2005-06-27

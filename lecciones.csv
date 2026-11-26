@@ -1,0 +1,21 @@
+leccionId,titulo,descripcion,duracionMin,numero
+1,Variables y Tipos de Datos,Uso de enteros cadenas y booleanos,15,1
+2,Condicionales y Ciclos,Estructuras if for y while,20,2
+3,Listas y Diccionarios,Manejo de colecciones en Python,25,1
+4,Que es una Base de Datos de Grafos,Conceptos de nodos relaciones y propiedades,18,1
+5,Consultas MATCH y RETURN,Busqueda de patrones en Neo4j,30,1
+6,Estructura Semantica HTML5,Etiquetas principales de una pagina web,20,1
+7,Regresion Lineal Simple,Ajuste de modelos predictivos,25,1
+8,Lectura de Archivos CSV en Pandas,Importacion y limpieza inicial,22,1
+9,Palabras Clave y Buscadores,Optimizacion para motores de busqueda,15,1
+10,Creacion de Prototipos en Figma,Diseno interactivo de pantallas,30,1
+11,Analisis de Vulnerabilidades,Identificacion de riesgos en sistemas,28,1
+12,Configuracion de Instancias Cloud,Creacion de servidores virtuales,24,1
+13,Ingenieria de Prompts,Diseno de instrucciones efectivas,20,1
+14,Interes Compuesto,Calculo de rendimientos a largo plazo,15,1
+15,El Sprint y la Ceremonia Daily,Seguimiento diario del equipo agil,18,1
+16,Clases Interfaces y Polimorfismo,Pilares de OOP en Java,26,1
+17,Perceptron Multicapa,Funcionamiento de capas ocultas,32,1
+18,Triangulo de Exposicion ISO Apertura,Control manual de la luz,20,1
+19,Presentaciones Ejecutivas en Ingles,Estructura de discursos corporativos,22,1
+20,Creacion de Imagenes con Dockerfile,Empaquetado de aplicaciones,25,1

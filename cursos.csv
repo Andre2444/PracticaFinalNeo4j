@@ -1,0 +1,21 @@
+cursoId,titulo,descripcion,nivel,anioPublicacion,calificacionPromedio
+1,Introduccion a Python,Curso basico de programacion en Python,Básico,2022,4.8
+2,Bases de Datos en Grafos con Neo4j,Modelado y consultas Cypher en Neo4j,Intermedio,2023,4.9
+3,Desarrollo Web Full Stack,Creacion de aplicaciones web modernas,Intermedio,2023,4.5
+4,Machine Learning Aplicado,Algoritmos supervisados y no supervisados,Avanzado,2024,4.7
+5,Ciencia de Datos con Pandas,Analisis y limpieza de datos en Python,Intermedio,2022,4.6
+6,Marketing Digital Estrategico,Estrategias de posicionamiento y redes,Básico,2021,4.3
+7,Diseno UX UI Moderno,Principios de experiencia e interfaz de usuario,Básico,2023,4.4
+8,Seguridad Informatica y Hacking Etico,Proteccion de sistemas y redes,Avanzado,2024,4.8
+9,Arquitectura en la Nube con AWS,Despliegue de infraestructura cloud,Avanzado,2023,4.7
+10,Inteligencia Artificial Generativa,Modelos de lenguaje y prompts,Intermedio,2024,4.9
+11,Finanzas Personales e Inversion,Gestion financiera para profesionales,Básico,2021,4.2
+12,Gestion de Proyectos Agile Scrum,Metodologias agiles para equipos,Intermedio,2022,4.5
+13,Programacion en Java Empresarial,Desarrollo backend con Java,Intermedio,2022,4.4
+14,Deep Learning con Redes Neuronales,Redes convolucionales y recurrentes,Avanzado,2024,4.8
+15,Fotografia Digital Profesional,Composicion e iluminacion fotografica,Básico,2021,4.1
+16,Ingles para Negocios Internacionales,Comunicacion ejecutiva en ingles,Intermedio,2022,4.6
+17,Desarrollo Movil con Flutter,Aplicaciones multiplataforma iOS y Android,Intermedio,2023,4.5
+18,Big Data con Apache Spark,Procesamiento distribuido de datos,Avanzado,2024,4.7
+19,Liderazgo y Habilidades Blandas,Comunicacion y direccion de equipos,Básico,2021,4.3
+20,DevOps con Docker y Kubernetes,Contenedores y orquestacion continua,Avanzado,2023,4.8

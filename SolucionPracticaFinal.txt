@@ -1,0 +1,178 @@
+Integrantes:
+- Nombre Integrante 1
+- Nombre Integrante 2
+
+Repositorio GitHub:
+https://github.com/Andre2444/PracticaFinalNeo4j
+
+
+Cargar nodos desde CSV
+
+// Usuarios
+LOAD CSV WITH HEADERS FROM 'https://raw.githubusercontent.com/Andre2444/PracticaFinalNeo4j/main/usuarios.csv' AS row
+MERGE (u:Usuario {usuarioId: toInteger(row.usuarioId)})
+SET u.nombre = row.nombre,
+    u.edad = toInteger(row.edad),
+    u.sexo = row.sexo,
+    u.email = row.email,
+    u.fechaNacimiento = row.fechaNacimiento;
+
+// Cursos
+LOAD CSV WITH HEADERS FROM 'https://raw.githubusercontent.com/Andre2444/PracticaFinalNeo4j/main/cursos.csv' AS row
+MERGE (c:Curso {cursoId: toInteger(row.cursoId)})
+SET c.titulo = row.titulo,
+    c.descripcion = row.descripcion,
+    c.nivel = row.nivel,
+    c.anioPublicacion = toInteger(row.anioPublicacion),
+    c.calificacionPromedio = toFloat(row.calificacionPromedio);
+
+// Modulos
+LOAD CSV WITH HEADERS FROM 'https://raw.githubusercontent.com/Andre2444/PracticaFinalNeo4j/main/modulos.csv' AS row
+MERGE (m:Modulo {moduloId: toInteger(row.moduloId)})
+SET m.titulo = row.titulo,
+    m.numero = toInteger(row.numero);
+
+// Lecciones
+LOAD CSV WITH HEADERS FROM 'https://raw.githubusercontent.com/Andre2444/PracticaFinalNeo4j/main/lecciones.csv' AS row
+MERGE (l:Leccion {leccionId: toInteger(row.leccionId)})
+SET l.titulo = row.titulo,
+    l.descripcion = row.descripcion,
+    l.duracionMin = toInteger(row.duracionMin),
+    l.numero = toInteger(row.numero);
+
+// Categorias
+LOAD CSV WITH HEADERS FROM 'https://raw.githubusercontent.com/Andre2444/PracticaFinalNeo4j/main/categorias.csv' AS row
+MERGE (cat:Categoria {codigo: toInteger(row.codigo)})
+SET cat.nombre = row.nombre,
+    cat.descripcion = row.descripcion;
+
+// Idiomas
+LOAD CSV WITH HEADERS FROM 'https://raw.githubusercontent.com/Andre2444/PracticaFinalNeo4j/main/idiomas.csv' AS row
+MERGE (i:Idioma {codigo: toInteger(row.codigo)})
+SET i.nombre = row.nombre;
+
+// Paises
+LOAD CSV WITH HEADERS FROM 'https://raw.githubusercontent.com/Andre2444/PracticaFinalNeo4j/main/paises.csv' AS row
+MERGE (p:Pais {codigo: toInteger(row.codigo)})
+SET p.nombre = row.nombre;
+
+
+Cargar relaciones desde CSV
+
+// (:Usuario)-[:VIO]->(:Leccion)
+LOAD CSV WITH HEADERS FROM 'https://raw.githubusercontent.com/Andre2444/PracticaFinalNeo4j/main/rel_vio.csv' AS row
+MATCH (origen:Usuario {usuarioId: toInteger(row.usuarioId)})
+MATCH (destino:Leccion {leccionId: toInteger(row.leccionId)})
+MERGE (origen)-[r:VIO]->(destino)
+SET r.fecha = row.fecha,
+    r.minutosReproducidos = toInteger(row.minutosReproducidos),
+    r.finalizado = toBoolean(row.finalizado);
+
+// (:Usuario)-[:LE_GUSTA]->(:Curso)
+LOAD CSV WITH HEADERS FROM 'https://raw.githubusercontent.com/Andre2444/PracticaFinalNeo4j/main/rel_le_gusta.csv' AS row
+MATCH (origen:Usuario {usuarioId: toInteger(row.usuarioId)})
+MATCH (destino:Curso {cursoId: toInteger(row.cursoId)})
+MERGE (origen)-[r:LE_GUSTA]->(destino)
+SET r.valoracion = toInteger(row.valoracion),
+    r.fecha = row.fecha;
+
+// Calcular calificacionPromedio de Curso derivada de las valoraciones de los usuarios
+MATCH (:Usuario)-[r:LE_GUSTA]->(c:Curso)
+WITH c, round(avg(r.valoracion) * 10.0) / 10.0 AS promedio
+SET c.calificacionPromedio = promedio;
+
+// (:Usuario)-[:INSCRITO_EN]->(:Curso)
+LOAD CSV WITH HEADERS FROM 'https://raw.githubusercontent.com/Andre2444/PracticaFinalNeo4j/main/rel_inscrito_en.csv' AS row
+MATCH (origen:Usuario {usuarioId: toInteger(row.usuarioId)})
+MATCH (destino:Curso {cursoId: toInteger(row.cursoId)})
+MERGE (origen)-[r:INSCRITO_EN]->(destino)
+SET r.fechaInicio = row.fechaInicio,
+    r.fechaFin = row.fechaFin,
+    r.progreso = toInteger(row.progreso),
+    r.estado = row.estado;
+
+// (:Usuario)-[:RESIDE_EN]->(:Pais)
+LOAD CSV WITH HEADERS FROM 'https://raw.githubusercontent.com/Andre2444/PracticaFinalNeo4j/main/rel_reside_en.csv' AS row
+MATCH (origen:Usuario {usuarioId: toInteger(row.usuarioId)})
+MATCH (destino:Pais {codigo: toInteger(row.codigoPais)})
+MERGE (origen)-[:RESIDE_EN]->(destino);
+
+// (:Curso)-[:DISPONIBLE_EN]->(:Pais)
+LOAD CSV WITH HEADERS FROM 'https://raw.githubusercontent.com/Andre2444/PracticaFinalNeo4j/main/rel_disponible_en.csv' AS row
+MATCH (origen:Curso {cursoId: toInteger(row.cursoId)})
+MATCH (destino:Pais {codigo: toInteger(row.codigoPais)})
+MERGE (origen)-[r:DISPONIBLE_EN]->(destino)
+SET r.fechaInicio = row.fechaInicio,
+    r.fechaFin = row.fechaFin;
+
+// (:Curso)-[:PERTENECE_A]->(:Categoria)
+LOAD CSV WITH HEADERS FROM 'https://raw.githubusercontent.com/Andre2444/PracticaFinalNeo4j/main/rel_pertenece_a.csv' AS row
+MATCH (origen:Curso {cursoId: toInteger(row.cursoId)})
+MATCH (destino:Categoria {codigo: toInteger(row.codigoCategoria)})
+MERGE (origen)-[:PERTENECE_A]->(destino);
+
+// (:Curso)-[:EN_IDIOMA]->(:Idioma)
+LOAD CSV WITH HEADERS FROM 'https://raw.githubusercontent.com/Andre2444/PracticaFinalNeo4j/main/rel_en_idioma.csv' AS row
+MATCH (origen:Curso {cursoId: toInteger(row.cursoId)})
+MATCH (destino:Idioma {codigo: toInteger(row.codigoIdioma)})
+MERGE (origen)-[:EN_IDIOMA]->(destino);
+
+// (:Curso)-[:ESTA_COMPUESTO]->(:Modulo)
+LOAD CSV WITH HEADERS FROM 'https://raw.githubusercontent.com/Andre2444/PracticaFinalNeo4j/main/rel_esta_compuesto.csv' AS row
+MATCH (origen:Curso {cursoId: toInteger(row.cursoId)})
+MATCH (destino:Modulo {moduloId: toInteger(row.moduloId)})
+MERGE (origen)-[r:ESTA_COMPUESTO]->(destino)
+SET r.orden = toInteger(row.orden);
+
+// (:Modulo)-[:CONTIENE]->(:Leccion)
+LOAD CSV WITH HEADERS FROM 'https://raw.githubusercontent.com/Andre2444/PracticaFinalNeo4j/main/rel_contiene.csv' AS row
+MATCH (origen:Modulo {moduloId: toInteger(row.moduloId)})
+MATCH (destino:Leccion {leccionId: toInteger(row.leccionId)})
+MERGE (origen)-[r:CONTIENE]->(destino)
+SET r.orden = toInteger(row.orden);
+
+
+Consultas
+
+// 1. ¿Cuál es la categoría que más ha cursado un usuario?
+MATCH (u:Usuario {usuarioId: 1})-[:INSCRITO_EN]->(c:Curso)-[:PERTENECE_A]->(cat:Categoria)
+RETURN u.nombre AS usuario, cat.nombre AS categoria, COUNT(c) AS totalCursos
+ORDER BY totalCursos DESC
+LIMIT 1;
+
+// 2. ¿Qué lecciones de un curso específico ha visto un usuario inscrito?
+MATCH (u:Usuario {usuarioId: 1})-[:INSCRITO_EN]->(c:Curso {cursoId: 1})-[:ESTA_COMPUESTO]->(m:Modulo)-[:CONTIENE]->(l:Leccion)
+MATCH (u)-[v:VIO]->(l)
+RETURN u.nombre AS usuario, c.titulo AS curso, l.titulo AS leccion, v.fecha AS fecha, v.minutosReproducidos AS minutosReproducidos, v.finalizado AS finalizado
+ORDER BY m.numero, l.numero;
+
+// 3. ¿Cuál es el curso más popular en un país determinado?
+MATCH (p:Pais {nombre: 'Colombia'})<-[:RESIDE_EN]-(u:Usuario)-[:INSCRITO_EN]->(c:Curso)
+RETURN p.nombre AS pais, c.titulo AS curso, COUNT(u) AS totalInscripciones
+ORDER BY totalInscripciones DESC
+LIMIT 1;
+
+// 4. ¿Qué cursos están disponibles en más de tres países?
+MATCH (c:Curso)-[:DISPONIBLE_EN]->(p:Pais)
+WITH c, COUNT(DISTINCT p) AS cantidadPaises
+WHERE cantidadPaises > 3
+RETURN c.titulo AS curso, cantidadPaises
+ORDER BY cantidadPaises DESC;
+
+// 5. ¿Qué curso popular en el país de residencia de un usuario puede recomendársele, si aún no está inscrito?
+MATCH (u:Usuario {usuarioId: 1})-[:RESIDE_EN]->(p:Pais)<-[:RESIDE_EN]-(otro:Usuario)-[:INSCRITO_EN]->(c:Curso)
+WHERE otro <> u AND NOT (u)-[:INSCRITO_EN]->(c)
+RETURN c.titulo AS cursoRecomendado, p.nombre AS pais, COUNT(DISTINCT otro) AS inscripcionesEnPais
+ORDER BY inscripcionesEnPais DESC
+LIMIT 1;
+
+// 6. ¿Qué cursos se pueden recomendar a un usuario según las categorías que ha cursado previamente?
+MATCH (u:Usuario {usuarioId: 1})-[:INSCRITO_EN]->(:Curso)-[:PERTENECE_A]->(cat:Categoria)<-[:PERTENECE_A]-(recomendado:Curso)
+WHERE NOT (u)-[:INSCRITO_EN]->(recomendado)
+RETURN DISTINCT recomendado.titulo AS cursoRecomendado, cat.nombre AS categoria;
+
+// 7. ¿Qué cursos han cursado otros usuarios con historial de inscripción similar, y que el usuario aún no ha cursado?
+MATCH (u:Usuario {usuarioId: 1})-[:INSCRITO_EN]->(comun:Curso)<-[:INSCRITO_EN]-(similar:Usuario)-[:INSCRITO_EN]->(recomendado:Curso)
+WHERE u <> similar AND NOT (u)-[:INSCRITO_EN]->(recomendado)
+RETURN recomendado.titulo AS cursoRecomendado, COUNT(DISTINCT comun) AS cursosEnComun, COUNT(DISTINCT similar) AS usuariosSimilares
+ORDER BY cursosEnComun DESC, usuariosSimilares DESC;
